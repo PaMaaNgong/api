@@ -35,7 +35,7 @@ paths:
           in: "query"
           description: "จำนวนวิชาที่แสดงสูงสุด"
           type: "number"
-          default: 10,
+          default: 10
           minimum: 1
           maximum: 100
         - name: "offset"
@@ -154,7 +154,7 @@ paths:
         in: "query"
         description: "จำนวนรีวิวที่แสดงสูงสุด"
         type: "number"
-        default: 10,
+        default: 10
         minimum: 1
         maximum: 20
       - name: "offset"
