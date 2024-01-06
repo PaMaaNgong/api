@@ -10,22 +10,22 @@ info:
 host: "localhost:3000"
 basePath: "/v1"
 tags:
-- name: "วิชา"
-  description: "เข้าถึงข้อมูลวิชาต่างๆ"
-- name: "รีวิว"
-  description: "เข้าถึงข้อมูลรีวิวต่างๆ ของวิชาหนึ่งๆ"
+  - name: "วิชา"
+    description: "เข้าถึงข้อมูลวิชาต่างๆ"
+  - name: "รีวิว"
+    description: "เข้าถึงข้อมูลรีวิวต่างๆ ของวิชาหนึ่งๆ"
 schemes:
-- "http"
+  - "http"
 paths:
   /courses:
     get:
       tags:
-      - "วิชา"
+        - "วิชา"
       summary: "รายการวิชาทั้งหมด"
       description: "แสดงรายการวิชาทั้งหมดที่มีในระบบ"
       operationId: "getCourse"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
         - name: "query"
           in: "query"
@@ -51,21 +51,23 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/CourseOverview"
+        400:
+          description: "พารามิเตอร์ไม่ถูกต้อง"
   /course/{courseId}:
     get:
       tags:
-      - "วิชา"
+        - "วิชา"
       summary: "รายละเอียดวิชา"
       description: "แสดงข้อมูลรายละเอียดของวิชาที่ระบุ"
       operationId: "getCourseById"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "courseId"
-        in: "path"
-        description: "รหัสวิชาของมหาวิทยาลัย"
-        required: true
-        type: "string"
+        - name: "courseId"
+          in: "path"
+          description: "รหัสวิชาของมหาวิทยาลัย"
+          required: true
+          type: "string"
       responses:
         200:
           description: "ปกติ"
@@ -76,31 +78,31 @@ paths:
   /course/{courseId}/reviews:
     get:
       tags:
-      - "รีวิว"
+        - "รีวิว"
       summary: "รายการรีวิวเบื้องต้น"
       description: "แสดงรายการข้อมูลการรีวิวเบื้องต้นของวิชาที่ระบุ"
       operationId: "getReviewOverviewByCourseId"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "courseId"
-        in: "path"
-        description: "รหัสวิชาของมหาวิทยาลัย"
-        required: true
-        type: "string"
-      - name: "limit"
-        in: "query"
-        description: "จำนวนรีวิวที่แสดงสูงสุด"
-        type: "number"
-        default: 10
-        minimum: 1
-        maximum: 1000
-      - name: "offset"
-        in: "query"
-        description: "จำนวนรีวิวที่ข้ามไปแล้ว"
-        type: "number"
-        default: 0
-        minimum: 0
+        - name: "courseId"
+          in: "path"
+          description: "รหัสวิชาของมหาวิทยาลัย"
+          required: true
+          type: "string"
+        - name: "limit"
+          in: "query"
+          description: "จำนวนรีวิวที่แสดงสูงสุด"
+          type: "number"
+          default: 10
+          minimum: 1
+          maximum: 1000
+        - name: "offset"
+          in: "query"
+          description: "จำนวนรีวิวที่ข้ามไปแล้ว"
+          type: "number"
+          default: 0
+          minimum: 0
       responses:
         200:
           description: "ปกติ"
@@ -108,6 +110,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/ReviewOverview"
+        400:
+          description: "พารามิเตอร์ไม่ถูกต้อง"
         404:
           description: "ไม่พบวิชา"
     post:
@@ -133,36 +137,38 @@ paths:
       responses:
         201:
           description: "สร้างรีวิวสำเร็จ"
+        400:
+          description: "ข้อมูลไม่ถูกต้อง"
         404:
           description: "ไม่พบวิชา"
   /course/{courseId}/reviews/detail:
     get:
       tags:
-      - "รีวิว"
+        - "รีวิว"
       summary: "รายการรีวิวโดยละเอียด"
       description: "แสดงรายการข้อมูลการรีวิวทั้งหมดของวิชาที่ระบุ"
       operationId: "getReviewDetailByCourseId"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "courseId"
-        in: "path"
-        description: "รหัสวิชาของมหาวิทยาลัย"
-        required: true
-        type: "string"
-      - name: "limit"
-        in: "query"
-        description: "จำนวนรีวิวที่แสดงสูงสุด"
-        type: "number"
-        default: 10
-        minimum: 1
-        maximum: 20
-      - name: "offset"
-        in: "query"
-        description: "จำนวนรีวิวที่ข้ามไปแล้ว"
-        type: "number"
-        default: 0
-        minimum: 0
+        - name: "courseId"
+          in: "path"
+          description: "รหัสวิชาของมหาวิทยาลัย"
+          required: true
+          type: "string"
+        - name: "limit"
+          in: "query"
+          description: "จำนวนรีวิวที่แสดงสูงสุด"
+          type: "number"
+          default: 10
+          minimum: 1
+          maximum: 20
+        - name: "offset"
+          in: "query"
+          description: "จำนวนรีวิวที่ข้ามไปแล้ว"
+          type: "number"
+          default: 0
+          minimum: 0
       responses:
         200:
           description: "ปกติ"
@@ -170,6 +176,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/ReviewDetail"
+        400:
+          description: "พารามิเตอร์ไม่ถูกต้อง"
         404:
           description: "ไม่พบวิชา"
 definitions:
@@ -189,9 +197,9 @@ definitions:
         type: "string"
         description: "ประเภทวิชา"
         enum:
-        - "me"
-        - "fe"
-        - "ge"
+          - "me"
+          - "fe"
+          - "ge"
     example:
       id: "261200"
       name_th: "การเขียนโปรแกรมเชิงวัตถุ"
@@ -224,25 +232,25 @@ definitions:
         items:
           type: "string"
     example:
-        id: "261361"
-        name_th: "การเขียนโปรแกรมเชิงวัตถุ"
-        name_en: "Object-Oriented Programming"
-        type: "me"
-        description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
-        lecturer: ["พี่ชิณสุดหล่อ"]
-        location: "อาคาร 3"
-        schedule:
-          - start_hour: 8
-            start_minute: 0
-            end_hour: 11
-            end_minute: 0
-            days: ["mon", "thu"]
-          - start_hour: 8
-            start_minute: 0
-            end_hour: 11
-            end_minute: 0
-            days: ["tue", "fri"]
-        rooms: ["301", "302"]
+      id: "261361"
+      name_th: "การเขียนโปรแกรมเชิงวัตถุ"
+      name_en: "Object-Oriented Programming"
+      type: "me"
+      description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
+      lecturer: [ "พี่ชิณสุดหล่อ" ]
+      location: "อาคาร 3"
+      schedule:
+        - start_hour: 8
+          start_minute: 0
+          end_hour: 11
+          end_minute: 0
+          days: [ "mon", "thu" ]
+        - start_hour: 8
+          start_minute: 0
+          end_hour: 11
+          end_minute: 0
+          days: [ "tue", "fri" ]
+      rooms: [ "301", "302" ]
   CourseTime:
     type: "object"
     properties:
@@ -271,19 +279,19 @@ definitions:
         items:
           type: "string"
           enum:
-          - "mon"
-          - "tue"
-          - "wed"
-          - "thu"
-          - "fri"
-          - "sat"
-          - "sun"
+            - "mon"
+            - "tue"
+            - "wed"
+            - "thu"
+            - "fri"
+            - "sat"
+            - "sun"
     example:
       start_hour: 8
       start_minute: 0
       end_hour: 11
       end_minute: 0
-      days: ["mon", "thu"]
+      days: [ "mon", "thu" ]
   ReviewOverview:
     type: "object"
     properties:
@@ -337,12 +345,12 @@ definitions:
         type: "integer"
         format: "พุทธศักราช"
     example:
-        rating: 5
-        grade: "a"
-        content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
-        classroom_environment: "เรียนในห้องแอร์เย็นสบาย"
-        examination_format: "สอบปลายภาค"
-        exercise_format: "เขียนโปรแกรม"
-        grading_method: ["midterm", "final"]
-        semester: "2"
-        year: 2564
+      rating: 5
+      grade: "a"
+      content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
+      classroom_environment: "เรียนในห้องแอร์เย็นสบาย"
+      examination_format: "สอบปลายภาค"
+      exercise_format: "เขียนโปรแกรม"
+      grading_method: [ "midterm", "final" ]
+      semester: "2"
+      year: 2564
