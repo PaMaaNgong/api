@@ -31,6 +31,19 @@ paths:
           in: "query"
           description: "คำค้นหารายวิชา"
           type: "string"
+        - name: "limit"
+          in: "query"
+          description: "จำนวนวิชาที่แสดงสูงสุด"
+          type: "number"
+          default: 10,
+          minimum: 1
+          maximum: 100
+        - name: "offset"
+          in: "query"
+          description: "จำนวนวิชาที่ข้ามไปแล้ว"
+          type: "number"
+          default: 0
+          minimum: 0
       responses:
         200:
           description: "ปกติ"
