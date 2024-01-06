@@ -312,9 +312,6 @@ definitions:
     allOf:
       - $ref: "#/definitions/ReviewOverview"
     properties:
-      id:
-        type: "integer"
-        format: "int64"
       content:
         type: "string"
       classroom_environment:
@@ -340,7 +337,6 @@ definitions:
         type: "integer"
         format: "พุทธศักราช"
     example:
-        id: 1
         rating: 5
         grade: "a"
         content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
