@@ -200,11 +200,16 @@ definitions:
           - "me"
           - "fe"
           - "ge"
+      total_reviews:
+        type: "integer"
+        format: "int64"
+        minimum: 0
     example:
       id: "261200"
       name_th: "การเขียนโปรแกรมเชิงวัตถุ"
       name_en: "Object-Oriented Programming"
       type: "me"
+      total_reviews: 1
   CourseDetail:
     type: "object"
     allOf:
