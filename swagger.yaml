@@ -163,16 +163,16 @@ definitions:
   CourseOverview:
     type: "object"
     properties:
-      course_id:
+      id:
         type: "string"
         description: "รหัสวิชาของมหาวิทยาลัย"
-      course_name_th:
+      name_th:
         type: "string"
         description: "ชื่อวิชา (ภาษาไทย)"
-      course_name_en:
+      name_en:
         type: "string"
         description: "ชื่อวิชา (ภาษาอังกฤษ)"
-      course_type:
+      type:
         type: "string"
         description: "ประเภทวิชา"
         enum:
@@ -180,45 +180,45 @@ definitions:
         - "fe"
         - "ge"
     example:
-      course_id: "261200"
-      course_name_th: "การเขียนโปรแกรมเชิงวัตถุ"
-      course_name_en: "Object-Oriented Programming"
-      course_type: "me"
+      id: "261200"
+      name_th: "การเขียนโปรแกรมเชิงวัตถุ"
+      name_en: "Object-Oriented Programming"
+      type: "me"
   CourseDetail:
     type: "object"
     allOf:
       - $ref: "#/definitions/CourseOverview"
     properties:
-      course_description:
+      description:
         type: "string"
         description: "คำอธิบายของวิชา"
-      course_lecturers:
+      lecturers:
         type: "array"
         description: "ชื่ออาจารย์ผู้สอน"
         items:
           type: "string"
-      course_location:
+      location:
         type: "string"
         description: "สถานที่เรียน"
-      course_schedule:
+      schedule:
         type: "array"
         description: "เวลาเรียน"
         items:
           $ref: "#/definitions/CourseTime"
-      course_rooms:
+      rooms:
         type: "array"
         description: "ห้องเรียน"
         items:
           type: "string"
     example:
-        course_id: "261361"
-        course_name_th: "การเขียนโปรแกรมเชิงวัตถุ"
-        course_name_en: "Object-Oriented Programming"
-        course_type: "me"
-        course_description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
-        course_lecturer: ["พี่ชิณสุดหล่อ"]
-        course_location: "อาคาร 3"
-        course_schedule:
+        id: "261361"
+        name_th: "การเขียนโปรแกรมเชิงวัตถุ"
+        name_en: "Object-Oriented Programming"
+        type: "me"
+        description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
+        lecturer: ["พี่ชิณสุดหล่อ"]
+        location: "อาคาร 3"
+        schedule:
           - start_hour: 8
             start_minute: 0
             end_hour: 11
@@ -229,7 +229,7 @@ definitions:
             end_hour: 11
             end_minute: 0
             days: ["tue", "fri"]
-        course_room: ["301", "302"]
+        rooms: ["301", "302"]
   CourseTime:
     type: "object"
     properties:
