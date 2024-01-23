@@ -338,7 +338,7 @@ definitions:
           - "-"
     example:
       rating: 5
-      grade: "a"
+      grade: "A"
   ReviewDetail:
     type: "object"
     allOf:
@@ -370,7 +370,7 @@ definitions:
         format: "พุทธศักราช"
     example:
       rating: 5
-      grade: "a"
+      grade: "A"
       content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
       classroom_environment: "เรียนในห้องแอร์เย็นสบาย"
       examination_format: "สอบปลายภาค"
