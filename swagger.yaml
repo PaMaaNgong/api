@@ -308,14 +308,15 @@ definitions:
       grade:
         type: "string"
         enum:
-          - "a"
-          - "b+"
-          - "b"
-          - "c+"
-          - "c"
-          - "d+"
-          - "d"
-          - "f"
+          - "A"
+          - "B+"
+          - "B"
+          - "C+"
+          - "C"
+          - "D+"
+          - "D"
+          - "F"
+          - "W"
           - "-"
     example:
       rating: 5
