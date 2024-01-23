@@ -236,6 +236,10 @@ definitions:
         description: "ห้องเรียน"
         items:
           type: "string"
+      credit:
+          type: "object"
+          description: "หน่วยกิต"
+          $ref: "#/definitions/CourseCredit"
     example:
       id: "261361"
       name_th: "การเขียนโปรแกรมเชิงวัตถุ"
@@ -256,6 +260,9 @@ definitions:
           end_minute: 0
           days: [ "tue", "fri" ]
       rooms: [ "301", "302" ]
+      credit:
+          lecture: 3
+          lab: 1
   CourseTime:
     type: "object"
     properties:
@@ -297,6 +304,17 @@ definitions:
       end_hour: 11
       end_minute: 0
       days: [ "mon", "thu" ]
+  CourseCredit:
+    type: "object"
+    properties:
+      lecture:
+        type: "number"
+        format: "integer"
+        minimum: 0
+      lab:
+        type: "number"
+        format: "integer"
+        minimum: 0
   ReviewOverview:
     type: "object"
     properties:
