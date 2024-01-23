@@ -7,7 +7,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "localhost:3000"
+host: "whale-app-3xvcg.ondigitalocean.app"
 basePath: "/v1"
 tags:
   - name: "วิชา"
@@ -15,7 +15,7 @@ tags:
   - name: "รีวิว"
     description: "เข้าถึงข้อมูลรีวิวต่างๆ ของวิชาหนึ่งๆ"
 schemes:
-  - "http"
+  - "https"
 paths:
   /courses:
     get:
