@@ -31,6 +31,14 @@ paths:
           in: "query"
           description: "คำค้นหารายวิชา"
           type: "string"
+        - name: "type"
+          in: "query"
+          description: "ประเภทวิชา"
+          type: "string"
+          enum:
+            - "me"
+            - "fe"
+            - "ge"
         - name: "limit"
           in: "query"
           description: "จำนวนวิชาที่แสดงสูงสุด"
@@ -178,6 +186,41 @@ paths:
               $ref: "#/definitions/ReviewDetail"
         400:
           description: "พารามิเตอร์ไม่ถูกต้อง"
+        404:
+          description: "ไม่พบวิชา"
+  /course/{courseId}/grades:
+    get:
+      tags:
+        - "วิชา"
+      summary: "รายการเกรด"
+      description: "แสดงรายการข้อมูลเกรดของวิชาที่ระบุ"
+      operationId: "getGradeByCourseId"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "courseId"
+          in: "path"
+          description: "รหัสวิชาของมหาวิทยาลัย"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "ปกติ"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+              enum:
+                - "A"
+                - "B+"
+                - "B"
+                - "C+"
+                - "C"
+                - "D+"
+                - "D"
+                - "F"
+                - "W"
+                - "-"
         404:
           description: "ไม่พบวิชา"
 definitions:
