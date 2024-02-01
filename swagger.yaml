@@ -68,8 +68,6 @@ paths:
       summary: "รายละเอียดวิชา"
       description: "แสดงข้อมูลรายละเอียดของวิชาที่ระบุ"
       operationId: "getCourseById"
-      produces:
-        - "application/json"
       parameters:
         - name: "courseId"
           in: "path"
@@ -83,6 +81,26 @@ paths:
             $ref: "#/definitions/CourseDetail"
         404:
           description: "ไม่พบวิชา"
+    post:
+        tags:
+            - "วิชา"
+        summary: "เพิ่มวิชา"
+        description: "เพิ่มวิชาเข้าไปยังระบบ"
+        operationId: "addCourse"
+        produces:
+            - "application/json"
+        parameters:
+          - name: "body"
+            in: "body"
+            description: "ข้อมูลวิชา"
+            required: true
+            schema:
+                $ref: "#/definitions/CourseDetail"
+        responses:
+          201:
+            description: "สร้างวิชาสำเร็จ"
+          400:
+            description: "ข้อมูลไม่ถูกต้อง"
   /course/{courseId}/reviews:
     get:
       tags:
@@ -128,8 +146,6 @@ paths:
       summary: "เพิ่มรีวิว"
       description: "เพิ่มรีวิวเข้าไปยังวิชาที่ระบุ"
       operationId: "addReview"
-      produces:
-        - "application/json"
       parameters:
         - name: "courseId"
           in: "path"
@@ -289,7 +305,7 @@ definitions:
       name_en: "Object-Oriented Programming"
       type: "me"
       description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
-      lecturer: [ "พี่ชิณสุดหล่อ" ]
+      lecturers: [ "พี่ชิณสุดหล่อ" ]
       location: "อาคาร 3"
       schedule:
         - start_hour: 8
