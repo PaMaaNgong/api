@@ -282,19 +282,6 @@ definitions:
         description: "ชื่ออาจารย์ผู้สอน"
         items:
           type: "string"
-      location:
-        type: "string"
-        description: "สถานที่เรียน"
-      schedule:
-        type: "array"
-        description: "เวลาเรียน"
-        items:
-          $ref: "#/definitions/CourseTime"
-      rooms:
-        type: "array"
-        description: "ห้องเรียน"
-        items:
-          type: "string"
       credit:
           type: "object"
           description: "หน่วยกิต"
@@ -306,63 +293,9 @@ definitions:
       type: "me"
       description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
       lecturers: [ "พี่ชิณสุดหล่อ" ]
-      location: "อาคาร 3"
-      schedule:
-        - start_hour: 8
-          start_minute: 0
-          end_hour: 11
-          end_minute: 0
-          days: [ "mon", "thu" ]
-        - start_hour: 8
-          start_minute: 0
-          end_hour: 11
-          end_minute: 0
-          days: [ "tue", "fri" ]
-      rooms: [ "301", "302" ]
       credit:
           lecture: 3
           lab: 1
-  CourseTime:
-    type: "object"
-    properties:
-      start_hour:
-        type: "integer"
-        format: "int64"
-        minimum: 0
-        maximum: 23
-      start_minute:
-        type: "integer"
-        format: "int64"
-        minimum: 0
-        maximum: 59
-      end_hour:
-        type: "integer"
-        format: "int64"
-        minimum: 0
-        maximum: 23
-      end_minute:
-        type: "integer"
-        format: "int64"
-        minimum: 0
-        maximum: 59
-      days:
-        type: "array"
-        items:
-          type: "string"
-          enum:
-            - "mon"
-            - "tue"
-            - "wed"
-            - "thu"
-            - "fri"
-            - "sat"
-            - "sun"
-    example:
-      start_hour: 8
-      start_minute: 0
-      end_hour: 11
-      end_minute: 0
-      days: [ "mon", "thu" ]
   CourseCredit:
     type: "object"
     properties:
