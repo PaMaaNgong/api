@@ -57,7 +57,7 @@ paths:
       description: "แสดงข้อมูลรายละเอียดของวิชาที่ระบุ"
       operationId: "getCourseById"
       parameters:
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
@@ -106,7 +106,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
@@ -134,7 +134,7 @@ paths:
           description: "JWT Token สำหรับการยืนยันตัวตน"
           required: true
           type: "string"
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
@@ -154,6 +154,7 @@ paths:
           description: "ไม่มีสิทธิ์เข้าถึง"
         404:
           description: "ไม่พบวิชา"
+  /course/{courseId}/reviews/{reviewId}:
     patch:
       tags:
         - "รีวิว"
@@ -166,11 +167,16 @@ paths:
           description: "JWT Token สำหรับการยืนยันตัวตน"
           required: true
           type: "string"
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
           type: "string"
+        - name: reviewId
+          in: "path"
+          description: "รหัสรีวิว"
+          required: true
+          type: "integer"
         - name: "body"
           in: "body"
           description: "ข้อมูลรีวิว"
@@ -198,11 +204,16 @@ paths:
           description: "JWT Token สำหรับการยืนยันตัวตน"
           required: true
           type: "string"
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
           type: "string"
+        - name: reviewId
+          in: "path"
+          description: "รหัสรีวิว"
+          required: true
+          type: "integer"
       responses:
         200:
           description: "ลบรีวิวสำเร็จ"
@@ -220,7 +231,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
@@ -246,7 +257,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "courseId"
+        - name: courseId
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
@@ -383,6 +394,9 @@ definitions:
   ReviewOverview:
     type: "object"
     properties:
+      id:
+        type: integer
+        description: "รหัสรีวิว"
       rating:
         type: "integer"
         format: "int64"
@@ -404,6 +418,7 @@ definitions:
       content:
         type: "string"
     example:
+      id: 0
       rating: 5
       grade: "A"
       content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
@@ -435,6 +450,7 @@ definitions:
         type: "integer"
         format: "พุทธศักราช"
     example:
+      id: 0
       rating: 5
       grade: "A"
       content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
