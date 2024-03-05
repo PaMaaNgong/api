@@ -1,7 +1,6 @@
----
 swagger: "2.0"
 info:
-  version: "1.0.0"
+  version: "2.0.0"
   title: "CPE Course Review"
   description: "API เฉพาะสำหรับการรีวิววิชาภายในภาควิชาวิศวกรรมคอมพิวเตอร์"
   license:
@@ -14,6 +13,8 @@ tags:
     description: "เข้าถึงข้อมูลวิชาต่างๆ"
   - name: "รีวิว"
     description: "เข้าถึงข้อมูลรีวิวต่างๆ ของวิชาหนึ่งๆ"
+  - name: "ผู้ใช้"
+    description: "จัดการข้อมูลผู้ใช้"
 schemes:
   - "https"
 paths:
@@ -39,19 +40,6 @@ paths:
             - "me"
             - "fe"
             - "ge"
-        - name: "limit"
-          in: "query"
-          description: "จำนวนวิชาที่แสดงสูงสุด"
-          type: "number"
-          default: 10
-          minimum: 1
-          maximum: 100
-        - name: "offset"
-          in: "query"
-          description: "จำนวนวิชาที่ข้ามไปแล้ว"
-          type: "number"
-          default: 0
-          minimum: 0
       responses:
         200:
           description: "ปกติ"
@@ -83,13 +71,18 @@ paths:
           description: "ไม่พบวิชา"
     post:
         tags:
-            - "วิชา"
+          - "วิชา"
         summary: "เพิ่มวิชา"
         description: "เพิ่มวิชาเข้าไปยังระบบ"
         operationId: "addCourse"
         produces:
-            - "application/json"
+          - "application/json"
         parameters:
+          - name: "accessToken"
+            in: "header"
+            description: "JWT Token สำหรับการยืนยันตัวตน"
+            required: true
+            type: "string"
           - name: "body"
             in: "body"
             description: "ข้อมูลวิชา"
@@ -101,6 +94,8 @@ paths:
             description: "สร้างวิชาสำเร็จ"
           400:
             description: "ข้อมูลไม่ถูกต้อง"
+          403:
+            description: "ไม่มีสิทธิ์เข้าถึง"
   /course/{courseId}/reviews:
     get:
       tags:
@@ -116,19 +111,6 @@ paths:
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
           type: "string"
-        - name: "limit"
-          in: "query"
-          description: "จำนวนรีวิวที่แสดงสูงสุด"
-          type: "number"
-          default: 10
-          minimum: 1
-          maximum: 1000
-        - name: "offset"
-          in: "query"
-          description: "จำนวนรีวิวที่ข้ามไปแล้ว"
-          type: "number"
-          default: 0
-          minimum: 0
       responses:
         200:
           description: "ปกติ"
@@ -147,6 +129,11 @@ paths:
       description: "เพิ่มรีวิวเข้าไปยังวิชาที่ระบุ"
       operationId: "addReview"
       parameters:
+        - name: "accessToken"
+          in: "header"
+          description: "JWT Token สำหรับการยืนยันตัวตน"
+          required: true
+          type: "string"
         - name: "courseId"
           in: "path"
           description: "รหัสวิชาของมหาวิทยาลัย"
@@ -163,8 +150,66 @@ paths:
           description: "สร้างรีวิวสำเร็จ"
         400:
           description: "ข้อมูลไม่ถูกต้อง"
+        403:
+          description: "ไม่มีสิทธิ์เข้าถึง"
         404:
           description: "ไม่พบวิชา"
+    patch:
+      tags:
+        - "รีวิว"
+      summary: "แก้ไขรีวิว"
+      description: "แก้ไขรีวิวของวิชาที่ระบุ"
+      operationId: "editReview"
+      parameters:
+        - name: "accessToken"
+          in: "header"
+          description: "JWT Token สำหรับการยืนยันตัวตน"
+          required: true
+          type: "string"
+        - name: "courseId"
+          in: "path"
+          description: "รหัสวิชาของมหาวิทยาลัย"
+          required: true
+          type: "string"
+        - name: "body"
+          in: "body"
+          description: "ข้อมูลรีวิว"
+          required: true
+          schema:
+            $ref: "#/definitions/ReviewDetail"
+      responses:
+        200:
+          description: "แก้ไขรีวิวสำเร็จ"
+        400:
+          description: "ข้อมูลไม่ถูกต้อง"
+        403:
+          description: "ไม่มีสิทธิ์เข้าถึง"
+        404:
+          description: "ไม่พบวิชา หรือ ไม่พบรีวิวที่ต้องการแก้ไข"
+    delete:
+      tags:
+        - "รีวิว"
+      summary: "ลบรีวิว"
+      description: "ลบรีวิวของวิชาที่ระบุ"
+      operationId: "deleteReview"
+      parameters:
+        - name: "accessToken"
+          in: "header"
+          description: "JWT Token สำหรับการยืนยันตัวตน"
+          required: true
+          type: "string"
+        - name: "courseId"
+          in: "path"
+          description: "รหัสวิชาของมหาวิทยาลัย"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "ลบรีวิวสำเร็จ"
+        403:
+          description: "ไม่มีสิทธิ์เข้าถึง"
+        404:
+          description: "ไม่พบวิชา หรือ ไม่พบรีวิวที่ต้องการลบ"
   /course/{courseId}/reviews/detail:
     get:
       tags:
@@ -180,19 +225,6 @@ paths:
           description: "รหัสวิชาของมหาวิทยาลัย"
           required: true
           type: "string"
-        - name: "limit"
-          in: "query"
-          description: "จำนวนรีวิวที่แสดงสูงสุด"
-          type: "number"
-          default: 10
-          minimum: 1
-          maximum: 20
-        - name: "offset"
-          in: "query"
-          description: "จำนวนรีวิวที่ข้ามไปแล้ว"
-          type: "number"
-          default: 0
-          minimum: 0
       responses:
         200:
           description: "ปกติ"
@@ -239,6 +271,41 @@ paths:
                 - "-"
         404:
           description: "ไม่พบวิชา"
+  /auth:
+    get:
+      tags:
+        - "ผู้ใช้"
+      summary: "ยืนยันตัวตน"
+      description: "ยืนยันตัวตนผ่านระบบ CMU OAuth"
+      operationId: "auth"
+      responses:
+        302:
+          description: "Redirect ไปยังหน้ายืนยันตัวตน"
+  /callback:
+    get:
+      tags:
+        - "ผู้ใช้"
+      summary: "Callback การยืนยันตัวตน"
+      description: "Callback การยืนยันตัวตนจากระบบ CMU OAuth"
+      operationId: "callback"
+      parameters:
+        - name: "code"
+          in: "query"
+          description: "รหัสยืนยันตัวตน"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "ยืนยันตัวตนสำเร็จ"
+          schema:
+            type: "object"
+            properties:
+              accessToken:
+                type: "string"
+                description: "JWT Token"
+        400:
+          description: "รหัสยืนยันตัวตนไม่ถูกต้อง"
+  
 definitions:
   CourseOverview:
     type: "object"
@@ -263,12 +330,18 @@ definitions:
         type: "integer"
         format: "int64"
         minimum: 0
+      rating:
+        type: "number"
+        format: "float"
+        minimum: 1
+        maximum: 5
     example:
       id: "261200"
       name_th: "การเขียนโปรแกรมเชิงวัตถุ"
       name_en: "Object-Oriented Programming"
       type: "me"
       total_reviews: 1
+      rating: 5
   CourseDetail:
     type: "object"
     allOf:
@@ -328,22 +401,23 @@ definitions:
           - "F"
           - "W"
           - "-"
+      content:
+        type: "string"
     example:
       rating: 5
       grade: "A"
+      content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
   ReviewDetail:
     type: "object"
     allOf:
       - $ref: "#/definitions/ReviewOverview"
     properties:
-      content:
-        type: "string"
       classroom_environment:
         type: "string"
       examination_format:
-        type: "string"
+        $ref: "#/definitions/ExaminationInfo"
       exercise_format:
-        type: "string"
+        $ref: "#/definitions/ExerciseInfo"
       grading_method:
         type: "array"
         items:
@@ -365,8 +439,50 @@ definitions:
       grade: "A"
       content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
       classroom_environment: "เรียนในห้องแอร์เย็นสบาย"
-      examination_format: "สอบปลายภาค"
-      exercise_format: "เขียนโปรแกรม"
+      examination_format:
+        format: "midterm"
+        difficulty: "normal"
+      exercise_format:
+        format: "group"
+        difficulty: "normal"
       grading_method: [ "midterm", "final" ]
       semester: "2"
       year: 2564
+  ExaminationInfo:
+    type: "object"
+    properties:
+      format:
+        type: "array"
+        items:
+          type: "string"
+          enum:
+            - "objective"
+            - "subjective"
+      difficulty:
+        type: "string"
+        enum:
+          - "easy"
+          - "normal"
+          - "hard"
+    example:
+      format: "midterm"
+      difficulty: "normal"
+  ExerciseInfo:
+    type: "object"
+    properties:
+      format:
+        type: "array"
+        items:
+          type: "string"
+          enum:
+            - "group"
+            - "individual"
+      difficulty:
+        type: "string"
+        enum:
+          - "easy"
+          - "normal"
+          - "hard"
+    example:
+      format: "group"
+      difficulty: "normal"
