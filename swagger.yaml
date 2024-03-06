@@ -320,12 +320,6 @@ paths:
       summary: "ยืนยันตัวตน"
       description: "ยืนยันตัวตนผ่านระบบ CMU OAuth"
       operationId: "auth"
-      parameters:
-        - name: "redirect_uri"
-          in: "query"
-          description: "URL สำหรับการ Redirect หลังจากยืนยันตัวตนสำเร็จ"
-          required: true
-          type: "string"
       responses:
         302:
           description: "Redirect ไปยังหน้ายืนยันตัวตน"
