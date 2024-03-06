@@ -47,8 +47,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/CourseOverview"
-        400:
-          description: "พารามิเตอร์ไม่ถูกต้อง"
   /course/{courseId}:
     get:
       tags:
@@ -118,8 +116,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/ReviewOverview"
-        400:
-          description: "พารามิเตอร์ไม่ถูกต้อง"
         404:
           description: "ไม่พบวิชา"
     post:
