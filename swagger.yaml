@@ -372,9 +372,9 @@ paths:
     get:
       tags:
         - "ผู้ใช้"
-      summary: "รีวิวของวิชา"
-      description: "แสดงรีวิวของวิชาที่ระบุ"
-      operationId: "getReviewByCourseId"
+      summary: "รายการรีวิวของวิชา"
+      description: "แสดงรายการรีวิวของวิชาที่ระบุ"
+      operationId: "getReviewsByCourseId"
       produces:
         - "application/json"
       parameters:
@@ -395,8 +395,30 @@ paths:
             $ref: "#/definitions/ReviewDetail"
         403:
           description: "ไม่มีสิทธิ์เข้าถึง"
-        404:
-          description: "ไม่พบรีวิวของวิชาที่ระบุ"
+  /profile/reviews:
+    get:
+      tags:
+        - "ผู้ใช้"
+      summary: "รายการรีวิวทั้งหมด"
+      description: "แสดงรายการรีวิวทั้งหมดของผู้ใช้"
+      operationId: "getReviews"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "accessToken"
+          in: "header"
+          description: "JWT Token สำหรับการยืนยันตัวตน"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "ปกติ"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ReviewDetail"
+        403:
+          description: "ไม่มีสิทธิ์เข้าถึง"
 definitions:
   CourseOverview:
     type: "object"
