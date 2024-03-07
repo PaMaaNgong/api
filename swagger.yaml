@@ -204,6 +204,7 @@ paths:
               rating: 5
               grade: "A"
               content: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
+              other: "เรียนเข้าใจง่ายมาก แต่ TA ตรวจค่อนข้างเข้มข้นและช้ามาก"
               classroom_environment: "เรียนในห้องแอร์เย็นสบาย"
               examination_format:
                 format: [ "subjective", "objective"]
@@ -450,15 +451,17 @@ definitions:
           description: "หน่วยกิต"
           $ref: "#/definitions/CourseCredit"
     example:
-      id: "261361"
+      id: "261200"
       name_th: "การเขียนโปรแกรมเชิงวัตถุ"
       name_en: "Object-Oriented Programming"
       type: "me"
-      description: "เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
-      lecturers: [ "พี่ชิณสุดหล่อ" ]
+      total_reviews: 1
+      rating: 5
+      description: "วิชานี้เป็นวิชาที่เรียนเกี่ยวกับการเขียนโปรแกรมเชิงวัตถุ"
+      lecturers: [ "อาจารย์ อาจารย์" ]
       credit:
-          lecture: 3
-          lab: 1
+        lecture: 3
+        lab: 0
   CourseCredit:
     type: "object"
     properties:
